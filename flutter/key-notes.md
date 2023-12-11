@@ -12,3 +12,29 @@
 - Mixin is good for code reuse
 - `Object` is the baseClass of `String`, `integer` etc except `null`
 - whenever you create a class, it also created `toString()` method
+
+## Dart Packages
+- https://pub.dev/
+- pubspec.yaml
+
+## Flutter
+- https://docs.flutter.dev/get-started/install
+
+## FLUTTER COMMAND
+- which flutter
+- flutter doctor
+- command + period
+
+## Types of widgets
+- StatelessWidget
+- StatefulWidget
+- InheritedWidget
+
+## Design system
+- Material Design by google
+- Cupertino Design by apple
+
+## READ MORE
+- Stream
+- class
+- records

@@ -240,3 +240,69 @@ if(student is Student){
     print(student);
 }
 ```
+```dart
+List<Student> students = [
+    Student("yinka")
+]
+
+students.add(Student("Victor"))
+students.remove(Student("yinka"))
+students.insert(2, Student("Shola"))
+students.contains()
+students.toSet()
+
+students.where(student=> student.marjs >= 20)
+// firstWhere, lastWhere
+```
+## Set : unique element
+```dart
+Set<Student> students = {
+    Student("yinka"),
+    Sudent("Benjamin"),
+    Sudent("Benjamin"),
+}
+```
+## MAP: collection key value pair
+```dart
+Map marks = {
+    'yinka': 10,
+    'James'; 20
+}
+Map<String, int> marks = {
+    'yinka': 10,
+    'James'; 20
+}
+final anotherMap = {
+    34: "low",
+    25: "very low"
+}
+marks['yinka']
+marks['shola'] = 20
+marks.addAll({
+    'tope': 45,
+    'shade': 35
+})
+marks.remove(10) // pass the key
+marks.keys.toList()
+marks.values.toList()
+marks.forEach((key,val)){
+    print('$key:$val')
+}
+```
+```dart
+List<Map<String, int>> marks = [
+    {
+        'math':20,
+        'english': 30
+    },
+     {
+        'math':50,
+        'english': 80
+    },
+]
+marks.map((e){
+    e.forEach((key,val){
+        print('$key:$val')
+    })
+}).toList()
+```
