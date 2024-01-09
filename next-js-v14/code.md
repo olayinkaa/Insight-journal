@@ -151,3 +151,6 @@ export const config = {
     matcher: ["/userslist/:path*"],
 }
 ```
+```js
+<body className={cn("relative h-full font-sans antialiased",inter.className)}></body>
+``````
