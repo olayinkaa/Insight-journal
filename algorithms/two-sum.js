@@ -11,5 +11,5 @@ function twoSum(arr, target) {
     return "No result"
 }
 
-const result = twoSum([3,2,5,4,1,9,0],9);
+const result = twoSum([3,2,5,4,1,9,0],20);
 console.log(result);
