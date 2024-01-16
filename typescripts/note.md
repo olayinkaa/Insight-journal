@@ -1,6 +1,8 @@
 # Installation & command
-- npm install -g typescript
-- npm i -g ts-node
+- `npm install -g typescript`
+- `npm i -g ts-node`
+- `tsc -init`
+- `tsc .\index.ts`
 
 # Vscode extensions
 - Javascript and typescript nightly
@@ -85,3 +87,22 @@ Interface is a way to define a contract for the shape of an object. It specifies
 
 while interfaces are commonly sed to define the structure of objects, they are not limited to just objects. Interfaces in Typescript can also be used to `describe the shape` of functions and classes.
 
+# Declaration Merging
+Once an interface is declared, it cannot be directly modified.
+However, Typescript allows what is informally referred to as `declaration merging` or `interface extension` which is often misconstrued as `re-opening`.
+
+Declaration merging in Typescript refers to the ability to extend or argument an existing declaration, including interfaces. This can be useful when you want to add new properties or methods to an existing interface without modifying the original declaration.
+
+# Generics
+In Typescript, generics allow you to create reusable components that can work with a variety of types. Generics make it possible for you to define functions, classes and interfaces that can work with different data types without having to duplicate code.
+
+# Type Narrowing
+Type narrowing is the process of refining a variable's type within a conditional block of code. This allows you to write more precise and type-safe code.
+
+Typescript provides several mechanisms for narrowing types
+- Type guards : Type guards are mechanisms that help typescript understand and narrow down the types more precisely. One common type guard is the `typeof` operator
+  
+- The instanceof operator: This is another type guard in typescript that allows you to check whether an object is an instance of a particular class or constructor function
+  
+- Intersection types
+  

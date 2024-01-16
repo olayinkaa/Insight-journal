@@ -186,6 +186,7 @@ interface Person {
     lastName: string;
     readOnly age: number;
     location?: string;
+    sayHello():void;
 }
 // interface for function
 interface MathOperations {
@@ -193,6 +194,26 @@ interface MathOperations {
 }
 // usage for function
 const add:MathOperations = (a, b) => a + b
+```
+```ts
+interface Song {
+    songName: string;
+    singerName:string;
+    printSongInfo(songName:string, singerName:string):string
+}
+
+interface Genre extends Song {
+    genre: string
+}
+
+cons song1: Song = {
+    songName: "Natural",
+    singerName: "Imagin Drigon",
+    printSongInfo: (songName, singerName)=> {
+        return `${songName} ${singerName}`
+    }
+}
+
 ```
 
 # Interface for class
@@ -214,4 +235,122 @@ class Car implements Vehicle {
 const myCar = new Car();
 myCar.stop()
 myCar.start()
+```
+# Declaration Merging
+```ts
+// original interface
+interface Car {
+    brand: string;
+    stop():void;
+}
+
+// Declaration merging (interface extension)
+interface Car {
+    model: string;
+    stop(): void;
+}
+
+const my Car: Car = {
+    brand: "BMW",
+    model: "M3",
+    start(){
+        //
+    },
+    stop(){
+        //
+    }
+}
+```
+
+# Generics
+```ts
+function printInfo<T>(x:T): T{
+    return x
+}
+function uniqueDataType<T, U>(item:T, defaultValue:U): [T, U]{
+    return [item, defaultValue]
+}
+
+const str = printInfo<string>("great")
+const newData = uniqueDataType<string, number>("Natural",50)
+```
+```ts
+class Box<T> {
+    private content: T;
+    constructor(initialContent:T){
+        this.content = initialContent
+    }
+}
+const a = new Box<string>("James")
+```
+
+# Index key signature
+```ts
+interface MyObject {
+  [key: string]: any;
+}
+
+// Example usage
+const myObj: MyObject = {
+  name: 'John',
+  age: 25,
+  city: 'Example City',
+};
+```
+# Instanceof
+```ts
+class Dog {
+    bark():void {
+
+    }
+}
+class Cat {
+    meow():void{
+
+    }
+}
+
+function animalSound(animal:Dog | Cat){
+    if(animal instanceof Dog){
+        animal.bark()
+    } else {
+        animal.meow()
+    }
+}
+const myDog = new Dog()
+animalSound(myDog)
+```
+
+# Tsconfig
+```ts
+{
+    "compilerOption":{
+        "outDir": "./dist"
+    },
+    "include": [],
+    "exclude": []
+}
+
+```
+
+# Library example
+```ts
+import axios , {AxiosResponse} from "axios
+
+interfact ITodo {
+    userId:  number;
+    id: number;
+    title:string;
+    completed: boolean;
+}
+
+const fetchData = async ()=> {
+    try {
+        const res: AxiosResponse<Todo> = await axios.get("URL")
+    } catch (error){
+        if(axios.isAxiosError(error)){
+            console.log(error.message)
+        }
+    }
+}
 ```
