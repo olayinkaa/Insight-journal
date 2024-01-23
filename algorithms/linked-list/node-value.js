@@ -25,5 +25,12 @@ function getNodeValue(head, index){
     return -1
 }
 
-const result = getNodeValue(a, 1);
+function rgetNodeValue(head, index){
+  if(head === null) return null
+  if(index===0) return head.val
+  return rgetNodeValue(head.next, index - 1)
+}
+
+// const result = getNodeValue(a, 1);
+const result = rgetNodeValue(a, 1);
 console.log(result);
