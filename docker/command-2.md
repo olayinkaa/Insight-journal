@@ -1,7 +1,7 @@
 # dockerfile
 <!-- 
 create ".dockerignore" file
-node_modules
+node_modules/
  -->
 ```shell
 # first stage
@@ -84,4 +84,39 @@ networks:
 volumes:
     mongo-data:
         driver: local
+```
+
+```shell
+services:
+  api:
+    image: avatars-api
+    build:
+      context: .
+      dockerfile: ./deploy/api.dockerfile
+    ports:
+      - 5734:80
+    develop:
+      watch:
+        - path: api/requirements.txt
+          action: rebuild
+        - path: api/
+          target: /app/api/
+          action: sync
+
+  web:
+    image: avatars-web
+    build:
+      context: .
+      dockerfile: ./deploy/web.dockerfile
+    ports:
+      - 5735:5173
+    develop:
+      watch:
+        - path: web/package.json
+          action: rebuild
+        - path: web/yarn.lock
+          action: rebuild
+        - path: web/
+          target: /app
+          action: sync
 ```

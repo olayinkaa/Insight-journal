@@ -1,3 +1,7 @@
+## check version
+```shell
+docker --version
+```
 ## List of images
 ```shell
 docker images
@@ -9,10 +13,16 @@ docker rmi nginx:latest
 ## Remove Container
 ```shell
 docker rm my_container_name
+
+# Stop and remove all running containers
+# -q stands for "quiet" or "query." When used with certain commands, it instructs Docker to output only the container or image IDs (short form) rather than additional information.
+# -a stands for "all." When used with certain commands, it instructs Docker to include stopped or all containers or images in the output, not just the running or active ones.
+docker rm $(docker ps -aq)
 ```
+
 ## Docker run 
 ```shell
-# docker run = pull and start image at the same time
+# docker run will pull and start image at the same time
 docker run image-name:version-number
 
 # run a container with a name
@@ -39,6 +49,7 @@ docker ps -a
 ```shell
 docker start container_id
 docker stop container_id
+docker container prune
 ```
 ## Port mapping/binding
 ```shell
@@ -53,6 +64,7 @@ docker run -d -p 8080:80 -p 8081:80 nginx
 ## log
 ```shell
 docker logs my_container_name
+docker-compose logs container_name
 ```
 
 ## exec (execute command inside a running container)
@@ -118,7 +130,7 @@ volumes:
     db-data:
         driver:local
 ```
-## start & stop docker compose
+## docker compose
 ```shell
 # if file name is not docker-compose.yaml
 # start docker compose
@@ -127,6 +139,13 @@ docker-compose -f mongo.yaml up
 # stop docker compose
 # also remove the network created
 docker-compose -f mongo.yaml down
+
+# stop docker compose and remove the created volume
+docker-compose down -v
+docker compose down # also valid command
+
+# watch
+docker compose watch
 ```
 ## Dockerfile
 - blueprint for create images
@@ -144,6 +163,9 @@ CMD ["node","server.js"]
 ```shell
 # file in current directory
 docker build -t my-app:1.0 .
+# dockerfile with a different name
+docker build -t your_custom_image_name -f ./app/Dockerfile.prod /your-project-root
+
 ```
 
 ## Image Naming in Docker Registries
@@ -160,8 +182,27 @@ docker pull docker.io/library/mongo:4.2
 docker tag my-app:1.0 66453930.dkr.eu-cental-1.amazonaws.com/my-app:1.0
 docker push 66453930.dkr.eu-cental-1.amazonaws.com/my-app:1.0
 ```
-## Docker volume
+## Docker volume: 
 use for data persistence
+- Remove volume
 ```shell
+docker volume rm volume_name
 
+# This command removes all unused volumes, which are volumes not currently attached to any containers
+docker volume prune
+
+# If you want to skip the confirmation prompt, you can use the -f or --force option:
+docker volume prune -f
+
+docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules react-docker
 ```
+# Publish
+```shell
+docker login
+
+# docker tag local_image_name your_dockerhub_username/repository_name:tag
+docker tag react-docker username/react-docker
+docker push username/react-docker:tag
+```
+
+## Docker scout

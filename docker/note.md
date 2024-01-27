@@ -1,3 +1,10 @@
+# Docker workflow
+- docker client: user interface for interacting with docker, the tools we use to give docker command.
+  
+- docker host or docker daemon: is the background process responsible for managing container on the host system, listen for docker client command, create and manage container, build images
+  
+- docker registry or docker hub: centralized repository of docker images,holds both public and private packages. Centralize storage for storing our images.
+
 # What is a container
 - A docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application
 
@@ -41,3 +48,13 @@ A linux kernel feature which allow processes to be organiszed into hierarchical 
 - C:\programData\docker\volumes `window`
 - /var/lib/docker/volumes `mac`
 - /var/lib/docker/volumes `linux`
+
+# Dockerfile
+- is a set of instructions telling docker how to build an image for our application
+- dockerfile commands: FROM, WORKDIR, RUN, CMD, EXPOSE, COPY, ENV, ARG, VOLUME, ENTRYPOINT
+- CMD more flexible and can be overriden
+- ENTRYPOINT cannot be overriden
+
+# docker init
+# docker compose watch
+-  sync, rebuild, sync-restart
