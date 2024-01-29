@@ -5,3 +5,8 @@ e.g 'hello there' === 'Ifmmp UIfsf'
 3. FLATTEN ARRAY: Take an array of arrays and flatten to a single array e.g [[1,2], [3,4,5]] = [1,2,3,4,5]
 4. ARRAY CHUNKING: e.g ([1,2,3,4,5,6,7], 3) = [ [1,2,3], [4,5,6], [7] ]
 5. LONGEST WORD e.g ('Hello, my name is Ibrahim') = 'Ibrahim';  ("Yes, Iam ye") = ['Yes','Iam']
+
+6. SINGLE NUMBER: Given a non-empty array of integers, every element appears twice except for one. Find that single one.
+Example : 
+input: [2,2,1]
+output: 1
