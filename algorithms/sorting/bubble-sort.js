@@ -1,4 +1,4 @@
-// )(n ^ 2) quadratic time complexity
+// 0(n ^ 2) quadratic time complexity
 function bubbleSort(arr){
     let swapped 
     do {
