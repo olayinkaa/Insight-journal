@@ -1,4 +1,15 @@
-//nlog(n)
+/**
+ * Use for large dataset
+ * 
+ * Time complexity
+ * Average case - 0(nlogn)
+ * Best case - 0(nlogn)
+ * Worst case - 0(n^2)
+ * 
+ * Space complexity
+ * Average case - 0(logn)
+ * Worst case - 0(n)
+ */
 function quickSort(arr){
     if(arr.length <= 1) {
         return arr
