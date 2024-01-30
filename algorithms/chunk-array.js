@@ -1,6 +1,6 @@
 // 
 function chunkedArray(arr, num){
-    let chunked = [ ]
+    let chunked = []
     let index = 0;
     while(index < arr.length){
         let result = arr.slice(index, index+num)
