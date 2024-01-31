@@ -21,6 +21,7 @@ const user = ({params})=> {
         <div>{params.id}</div>
     )
 }
+
 const user = ({params})=> {
     const {id} = params
     return (
