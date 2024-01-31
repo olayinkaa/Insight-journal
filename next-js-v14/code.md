@@ -1,3 +1,7 @@
+## Start Next app
+```shell
+npx create-next-app@latest
+```
 ## LINK
 ```js
 import Link from "next/link"
@@ -126,6 +130,14 @@ export function GET(_,response){
     // response.params.id
     
 }
+export async function POST(req, res){
+    let data = await req.json()
+    if(!data.email){
+        return NextResponse.json({error: "Email is required"},{status:400})
+    }
+    return NextResponse.json({result:"success"})
+}
+//usage, call endpoint: /api/users
 ```
 
 ## Middleware
@@ -142,10 +154,10 @@ export const config = {
 //middleware.js
 import { NextResponse } from "next/server";
 export function middleware (request) {
-    if (request.nextUrl .pathname * '/login') {
+    if (request.nextUrl.pathname !== '/login') {
         return NextResponse.redirect(new URL('/login', request.url)
     }
-    return NextResponse. Json({ success: "successfully ran" 3);
+    return NextResponse. Json({ success: "successfully ran" });
 }
 export const config = {
     matcher: ["/userslist/:path*"],
@@ -153,4 +165,28 @@ export const config = {
 ```
 ```js
 <body className={cn("relative h-full font-sans antialiased",inter.className)}></body>
-``````
+```
+
+## Environment variable
+```js
+// .env.local
+MONGO_URI="mongodb://27017:username"
+process.env.MONGO_URI
+```
+
+## Using Fetch
+```js
+const onSubmit = ()=> {
+    const response = await fetch("api/users", {
+        method: "POST",
+        body: JSON.stringify({name, age, email})
+    })
+
+    response = await response.json()
+    if(response.ok){
+        // do something
+    } else {
+        // do something else
+    }
+}
+```
