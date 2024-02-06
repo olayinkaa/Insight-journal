@@ -9,6 +9,7 @@ API routes: It offers a built-in API route feature that allows you to create ser
 Link is a component provided by Next.js that allows you to create links to navigate between pages in your application.
 It's primarily used for declarative, client-side navigation. When you click on a link created with Link, it prevents the default browser full-page refresh and fetches the new page content on the client side, resulting in a faster and smoother user experience.
 It's typically used in your component's JSX code to create clickable links that lead to other pages within your Next.js application.
+The <Link> component is a React component that extends the HTML `<a>` element, and it's the primary way to navigate between routes in Next.js
 
 ## useRouter()
 useRouter is a hook provided by Next.js that allows you to access
@@ -30,3 +31,16 @@ A layout is like a blueprint that helps you make all the pages of your website l
 
 ## Middleware(s)
 In Next.js, middleware's are functions or pieces of code that run in between a user's request to a web page and the server's response. They help you process and modify the request or response, adding extra functionality to your web application.
+
+## Routing Metadata
+Ensuring proper search engine optimization (SEO) is crucial for increasing visibilty and attracting users
+
+Configuring Metadata
+- Export a static metadata object
+- Export a dynamic generateMetadata function
+
+Metadata rules
+- Both layout.tsx and page.tsx files can export metadata. If defined in a layout, it applies to all pages in that layout, but if defined in a page, it applies only to that page
+  
+Metadata is read in order, from the root level down to the final page level
+When there's metadata in multiple places for the same route, they get combined, but page metadata will replace layout metadata if they have the same properties
