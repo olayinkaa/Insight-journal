@@ -45,6 +45,8 @@ import {useRouter} from "next/navigation"
 const router = useRouter()
 // usagen 
 <button onClick={()=> router.push('about')}>Go to About Page</button>
+<button onClick={()=> router.back()}>Back</button>
+<button onClick={()=> router.forward()}>Forward</button>
 ```
 ## DYNAMIC ROUTE
 ```js
@@ -146,8 +148,16 @@ const Data = async ()=> {
     )
 }
 ```
+## Route handlers
+```js
+// best convention is to create an api folders and put all api route there e.g api/register/route.ts
 
-## API route
+// app/dashboard/route.ts
+// app/register/route.ts
+// app/register/users/route.ts
+
+```
+## API route 
 ```js
 import {NextResponse} from "next/server"
 // app/api/users/route.js
@@ -296,4 +306,52 @@ export const metadata: Metadata = {
 export default function Page(){
     return <p>This is a sample</p>
 }
+```
+
+## Error handling
+```js
+// error.tsx
+"use client"
+export default function ErrorBoundary({error}:{error:Error}){
+    console.log(error)
+    return <div>Error in review page {error.message}</div>
+}
+```
+## Recover from errors
+```js
+// error.tsx
+"use client"
+export default function ErrorBoundary({error, reset}:{
+    error:Error, 
+    reset: ()=> void
+    }){
+    console.log(error)
+    return <div>
+        Error in review page {error.message}
+        <button onClick={reset}>Try again</button>
+    </div>
+}
+```
+
+## Parallel route
+```js
+// @user/page.tsx
+// @revenue/page.tsx
+export default function DashboardLayout({children, users, revenue}:{
+    chidren: React.ReactNode,
+    users: React.ReactNode,
+    revenue: React.ReactNode,
+}){
+    return (
+        <div>
+            {children}
+            <div>{users}</div>
+            <div>{revenue}</div>
+        </div>
+    )
+}
+```
+
+## Route handler
+```js
 ```
