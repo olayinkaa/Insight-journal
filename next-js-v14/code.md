@@ -155,7 +155,8 @@ const Data = async ()=> {
 // app/dashboard/route.ts
 // app/register/route.ts
 // app/register/users/route.ts
-
+// app/register/[id]/route.ts
+l
 ```
 ## API route 
 ```js
@@ -166,9 +167,8 @@ export function GET(){
 }
 
 // app/user/[id]/route.js
-export function GET(_,response){
+export async function GET(_,response){
     // response.params.id
-    
 }
 export async function POST(req, res){
     let data = await req.json()
