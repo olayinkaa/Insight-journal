@@ -127,3 +127,53 @@ There is no overhead of having to create and configure a separate server
 Route handlers are also great for making external API requests
 
 Route handlers run server-side, ensuring that sensitive information like private keys remain secure and never gets shipped to the browser
+
+## What is Static Rendering?
+With static rendering, data fetching and rendering happens on the server at build time (when you deploy) or during revalidation. The result can then be distributed and cached in a Content Delivery Network (CDN).
+
+Whenever a user visits your application, the cached result is served. There are a couple of benefits of static rendering:
+
+Faster Websites - Prerendered content can be cached and globally distributed. This ensures that users around the world can access your website's content more quickly and reliably.
+Reduced Server Load - Because the content is cached, your server does not have to dynamically generate content for each user request.
+SEO - Prerendered content is easier for search engine crawlers to index, as the content is already available when the page loads. This can lead to improved search engine rankings.
+Static rendering is useful for UI with no data or data that is shared across users, such as a static blog post or a product page. It might not be a good fit for a dashboard that has personalized data that is regularly updated.
+
+The opposite of static rendering is dynamic rendering.
+
+
+## What is Dynamic Rendering?
+With dynamic rendering, content is rendered on the server for each user at request time (when the user visits the page). There are a couple of benefits of dynamic rendering:
+
+Real-Time Data - Dynamic rendering allows your application to display real-time or frequently updated data. This is ideal for applications where data changes often.
+User-Specific Content - It's easier to serve personalized content, such as dashboards or user profiles, and update the data based on user interaction.
+Request Time Information - Dynamic rendering allows you to access information that can only be known at request time, such as cookies or the URL search parameters.
+
+## What is streaming?
+Streaming is a data transfer technique that allows you to break down a route into smaller "chunks" and progressively stream them from the server to the client as they become ready.
+
+By streaming, you can prevent slow data requests from blocking your whole page. This allows the user to see and interact with parts of the page without waiting for all the data to load before any UI can be shown to the user.
+
+Streaming works well with React's component model, as each component can be considered a chunk.
+
+There are two ways you implement streaming in Next.js:
+
+1. At the page level, with the loading.tsx file.
+2. For specific components, with <Suspense>.
+   
+A few things are happening here:
+
+loading.tsx is a special Next.js file built on top of Suspense, it allows you to create fallback UI to show as a replacement while page content loads.
+Since <SideNav> is static, it's shown immediately. The user can interact with <SideNav> while the dynamic content is loading.
+The user doesn't have to wait for the page to finish loading before navigating away (this is called interruptable navigation).
+
+## Adding loading skeletons
+A loading skeleton is a simplified version of the UI. Many websites use them as a placeholder (or fallback) to indicate to users that the content is loading. Any UI you embed into loading.tsx will be embedded as part of the static file, and sent first. Then, the rest of the dynamic content will be streamed from the server to the client.
+
+## Questions
+1. How does Next.js optimize fonts?
+Answer: 
+Next.js downloads font files at build time and hosts them with your other static assets. This means when a user visits your application, there are no additional network requests for fonts which would impact performance.
+
+2. What does Next.js do when a <Link> component appears in the browser’s viewport in a production environment?
+Answer:
+Next.js automatically prefetches the code for the linked route in the background. By the time the user clicks the link, the code for the destination page will already be loaded in the background, and this is what makes the page transition near-instant!
