@@ -108,6 +108,7 @@ async function fetchData(){
     data = await data.json()
     return data
 }
+//------------------------------------------------
 const Data = async ()=> {
     let products = await fetchData()
     return (
@@ -148,7 +149,7 @@ export function middleware(request){
     return NextResponse.json({success: true})
 }
 export const config = {
-    matcher: ["/userslist/:path*"]
+    matcher: ["/userslist/:path*"]  
 }
 ```
 ```js
@@ -189,5 +190,57 @@ const onSubmit = ()=> {
     } else {
         // do something else
     }
+}
+```
+
+## Sample data fetch in a page
+```js
+interface Repository {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+export default async function Page(){
+    const res = await fetch("https://api.github.com/", {
+        cache: "no-store", 
+        next: {
+            revalidate: 5
+        }
+    })
+    const data:Repository = await res.json()
+    return (
+        <div>
+            {data.firstName}
+        </div>
+    )
+}
+```
+```js
+interface Repository {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+async function getRepos():Promise<Repository>{
+    const res = await fetch("https://api.github.com/", {
+        next: {
+            revalidate: 5
+        }
+    })
+}
+
+async function getTime():Promise<Repository>{
+    const res = await fetch("https://api.github.com/", {
+        cache: "no-store", 
+    })
+}
+
+export default async function Page(){
+    const [data, time] = await Promise.all([getRepos(), getTime()])
+    return (
+        <div>
+            {data.firstName}
+        </div>
+    )
 }
 ```
