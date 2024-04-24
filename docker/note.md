@@ -12,6 +12,8 @@
 
 # Containers
 - layers of images mostly linux base image because of small in size
+- containers are ephemeral: by default, no persistence
+- All data is gone when containers are removed
 
 # Open Container initiative (OCI)
 Is an open governance structure for the express purpose of creating open industry standards around container formats and runtimes.

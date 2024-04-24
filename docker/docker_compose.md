@@ -1,57 +1,88 @@
-# dockerize react-application
-```dockerfile
-# set the base image to create the image for react app
-FROM node:20-alpine
+# docker-compose
+- docker compose takes care of creating a common network
 
-# create a user with permissions to run the app
-# -S -> create a system user
-# -G -> add the user to a group
-# This is done to avoid running the app as root
-# If the app is run as root, any vulnerability in the app can be exploited to gain access to the host system
-# It's a good practice to run the app as a non-root user
-RUN addgroup app && adduser -S -G app app
-
-# set the user to run the app
-USER app
-
-# set the working directory to /app
-WORKDIR /app
-
-# copy package.json and package-lock.json to the working directory
-# This is done before copying the rest of the files to take advantage of Docker’s cache
-# If the package.json and package-lock.json files haven’t changed, Docker will use the cached dependencies
-COPY package*.json ./
-
-# sometimes the ownership of the files in the working directory is changed to root
-# and thus the app can't access the files and throws an error -> EACCES: permission denied
-# to avoid this, change the ownership of the files to the root user
-USER root
-
-# change the ownership of the /app directory to the app user
-# chown -R <user>:<group> <directory>
-# chown command changes the user and/or group ownership of for given file.
-RUN chown -R app:app .
-
-# change the user back to the app user
-USER app
-
-# install dependencies
-RUN npm install
-
-# copy the rest of the files to the working directory
-COPY . .
-
-# expose port 5173 to tell Docker that the container listens on the specified network ports at runtime
-EXPOSE 5173
-
-# command to run the app
-CMD npm run dev
-```
 ```shell
-docker init
+version: "3"
+services:
+    react-app:
+        image: react-app
+        build: ./client/     # path to dockerfile on client folder
+        stdin_open: true
+        tty: true
+        ports:
+            - "3000:3000"
+        env_file: # environment file
+          - ./.env
+        networks:
+            - mern-app
+        volumes:
+            - ./client/:/usr/src/app
+            - /usr/src/app/node_module
+    api-server:
+        image: react-app
+        restart: unless-stopped
+        build: ./server/     # path to dockerfile on server folder
+        stdin_open: true
+        ports:
+            - "5000:5000"
+        networks:
+            - mern-app
+        volumes:
+            - ./client/:/usr/src/app
+            - /usr/src/app/node_module  
+        depends_on:
+            - mongo
+    mongo:
+        image: mongo:4.4-bionic
+        ports:
+            - "27017:27017"
+        networks:
+            - mern-app
+        volumes:
+            - mongo-data:/data/db
+networks:
+    mern-app:
+        driver: bridge
+volumes:
+    mongo-data:
+        driver: local
 ```
 
-# docker compose
+```shell
+services:
+  api:
+    image: avatars-api
+    build:
+      context: .
+      dockerfile: ./deploy/api.dockerfile
+    ports:
+      - 5734:80
+    develop:
+      watch:
+        - path: api/requirements.txt
+          action: rebuild
+        - path: api/
+          target: /app/api/
+          action: sync
+
+  web:
+    image: avatars-web
+    build:
+      context: .
+      dockerfile: ./deploy/web.dockerfile
+    ports:
+      - 5735:5173
+    develop:
+      watch:
+        - path: web/package.json
+          action: rebuild
+        - path: web/yarn.lock
+          action: rebuild
+        - path: web/
+          target: /app
+          action: sync
+```
+
 ```shell
 services:
     web:
@@ -164,4 +195,43 @@ services:
 # define the volumes to be used by the services
 volumes:
   anime:
+```
+
+```yml
+# docker-compose.yaml
+version: "3.8"
+services: 
+    my-app:
+        image: 66453930.dkr.eu-cental-1.amazonaws.com/my-app:1.0
+        ports: 3000:3000
+
+    mongodb:
+        image: mongo
+        ports:
+            - 27017:27017
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=${MONGO_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+        volumes:
+            - da-data:/var/lib/mysql/data
+    mongo-express:
+        image: mongo-express
+        ports:
+            - 8080:8080
+        environment:
+            - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_USERNAME}
+            - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_PASSWORD}
+            - ME_CONFIG_MONGODB_SERVER=mongodb
+volumes:
+    db-data:
+        driver:local
+```
+```yml
+services:
+  web:
+    build: .
+    develop:
+      watch:
+        - action: rebuild
+          path: package.json
 ```

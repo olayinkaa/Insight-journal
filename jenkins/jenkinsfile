@@ -1,0 +1,39 @@
+def gv
+
+pipeline {
+    agent any
+    stages {
+        stage("init"){
+            steps {
+                script {
+                    echo "initializing Groovy Script..."
+                    gv = load "script.groovy"
+                }
+            }
+        }
+        stage("build"){
+            steps {
+                script {
+                    echo "Build docker image with dockerfile..."
+                    gv.buildImage()
+                }
+            }
+        }
+        stage("push"){
+            steps {
+                script {
+                    echo "Pushing docker image to docker hub..."
+                    gv.pushImage()
+                }
+            }
+        }
+        stage("deploy"){
+            steps {
+                script {
+                    echo "Deploying the application to EC2"
+                    gv.deployImage()
+                }
+            }
+        }
+    }
+}

@@ -84,6 +84,16 @@ const NotFound = ()=> {
     )
 }
 ```
+```js
+import {notFound} from "next/navigation"
+const ProductPage = ()=> {
+    const product = await fetchProduct(url)
+    if(!product) return notFound()
+    return (
+        <div>Product one</div>
+    )
+}
+```
 ## REDIRECT, USEPATHNAME
 ```js
 import {redirect} from "next/navigation"
