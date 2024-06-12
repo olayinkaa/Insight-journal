@@ -11,7 +11,6 @@ function validAnagram(str1,str2){
         if( !(key in obj2)) return false
         if(obj1[key] !== obj2[key]) return false
     }
-
     return true
 }
 

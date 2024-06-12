@@ -61,3 +61,9 @@ Is a word, phrase, or name formed by rearranging the letters of another such as 
 Creating pointers or values that correspond to an index or position and move towards the beginning, end or middle based on a certain condition
 
 very efficient for solving problems with minimal space complexity as well.
+
+# Sliding window
+This pattern involves creating a window which can either be an array or number from one position to another
+Depending on a certain condition, the window either increases or closes ( and a new window is created)
+
+Very useful for keeping track of a subset of data in an array/string etc.
