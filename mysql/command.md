@@ -11,3 +11,7 @@ insert into info values('ricardo','gomez',21)
 ```sql
 mysqldump -u root -h mysql_host -p testdb > /tmp/db.sql
 ```
+# run script biodata.sql
+```sql
+source /path/to/biodata.sql
+```

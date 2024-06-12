@@ -37,3 +37,52 @@ pipeline {
         }
     }
 }
+
+// 
+
+pipeline {
+    agent any
+
+    environment {
+        FIRSTNAME = 'Olayinka'
+        LASTNAME='Ibrahim'
+        secret = credentials('maven-project-user')
+    }
+    stages {
+        stage("Build"){
+            steps {
+                sh 'echo "My first pipeline"'
+                sh '''
+                    echo "Great is the lord"
+                    ls -ltra
+                '''
+            }
+        }
+        stage("Timeout"){
+            steps {
+                retry(3){
+                    sh 'echo "My name is" $FIRSTNAME $LASTNAME'
+                    sh 'echo $secret'
+                }
+                
+            }
+            timeout(time:3, unit: 'SECONDS'){
+                sh 'sleep 5'
+            }
+        }
+    }
+    post {
+        always {
+
+        }
+        success {
+
+        }
+        failure {
+            
+        }
+        unstable {
+
+        }
+    }
+}

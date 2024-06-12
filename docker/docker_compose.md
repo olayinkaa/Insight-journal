@@ -1,7 +1,7 @@
 # docker-compose
 - docker compose takes care of creating a common network
 
-```shell
+```yml
 version: "3"
 services:
     react-app:
@@ -48,7 +48,7 @@ volumes:
         driver: local
 ```
 
-```shell
+```yml
 services:
   api:
     image: avatars-api
@@ -95,7 +95,7 @@ services:
             - /app/node_modules
 ```
 # compose yaml file
-```shell
+```yml
 # specify the version of docker-compose
 version: "3.8"
 
@@ -234,4 +234,33 @@ services:
       watch:
         - action: rebuild
           path: package.json
+```
+
+```yml
+version: '3'
+services:
+  react-app:
+    stdin_open: true
+    tty: true
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+      # passing arguments
+      args:
+        - REACT_APP_NAME=olayinka
+    ports:
+      - "4006:8080"
+```
+
+```yml
+version: '3.8'
+services:
+  myservice:
+    image: myimage
+    env_file: ${ENV_FILE}
+    ports:
+      - "8080:8080"
+
+# usage 
+docker-compose -f docker-compose.yml -e ENV_FILE=.env.dev up
 ```

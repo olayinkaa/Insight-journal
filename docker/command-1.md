@@ -48,6 +48,9 @@ docker run -it --name my-ubuntu ubuntu:22.04
 
 # datached mode
 docker run -d redis
+# --rm: This option automatically removes the container when it exits. This is useful for temporary containers.
+docker run --rm --name mongodb mongo
+
 ```
 
 ## Docker Pull
@@ -140,6 +143,13 @@ docker compose start container_id
 
 # watch
 docker compose watch
+
+# build docker compose file
+docker compose build
+
+# build docker compose file with different name
+# --no-cache: This option tells Docker Compose to not use any cache during the build process, forcing each build step to be executed from scratch.
+docker compose -f docker-compose-build.yml build --no-cache
 ```
 
 ## Dockerfile
@@ -181,8 +191,12 @@ use for data persistence
 ```shell
 docker volume rm volume_name
 
+
 # This command removes all unused volumes, which are volumes not currently attached to any containers
 docker volume prune
+
+docker volume ls -f danling=true
+
 
 # If you want to skip the confirmation prompt, you can use the -f or --force option:
 docker volume prune -f
@@ -190,15 +204,24 @@ docker volume prune -f
 docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules react-docker
 ```
 
+# Docker tag
+```sh
+docker tag image-name:tag-name username/repository-name:tag-name
+docker tag app:2 olayinkaa/maven-project:2
+```
+
 # Publish
 ```shell
 docker login
+docker login -u username -p password
 # docker tag local_image_name your_dockerhub_username/repository_name:tag
 docker tag react-docker username/react-docker
 docker push username/react-docker:tag
 ```
 
 ## Docker scout
+```sh
+```
 
 
 ```shell
@@ -210,4 +233,18 @@ docker init
 # docker cp filename container_name:/path
 docker cp script.sh jenkins:/tmp/script.sh
 docker cp remote-key jenkins_server:/tmp
+```
+
+# Push and Pull Process
+```sh
+# 1. tag the image
+docker tag app:2 olayinkaa/maven-project:2
+# this will create an image with
+#  name: oolayinka/maven-project   and tag number 2
+# push it
+docker push olayinkaa/maven-project:2
+
+#  to pull the image
+docker pull olayinkaa/maven-project:2
+
 ```

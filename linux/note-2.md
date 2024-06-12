@@ -113,3 +113,19 @@ command to change permissions
 THere are two owners of file or directory
 - user
 - group
+
+# Input and Output Redirects
+
+- There are 3 redirects in linux
+1. standard input - stdin and it has file descriptor number as 0
+2. standard output -stdout ---- 1
+3. standard error - stderr ---- 2
+
+By default when running a command its output goes to the terminal
+the output of a command can be routed to a file using >
+ 
+# TEE command
+is used to store  and view the output of command at the same time
+
+# Pipes
+A pipe is used by the shell to connect the output of one command directly to the input of another command

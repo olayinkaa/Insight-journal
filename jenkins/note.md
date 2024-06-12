@@ -36,3 +36,7 @@ An easy way to obtain the Jenkins environment variables list from your local ins
 2. Pipelines : 
    - use the groovy syntax
    - use stages to break down components of builds
+
+# Global environment variables in Jenkins
+- BUILD_NUMBER
+- BUILD_URL

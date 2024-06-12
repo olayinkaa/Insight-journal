@@ -11,6 +11,7 @@
 - [ ] Jenkins
 - [ ] AWS
 - [ ] Algorithm
+- [ ] Vue JS
 
 
 ##

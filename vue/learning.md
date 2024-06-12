@@ -1,0 +1,14 @@
+# Course Content
+- [] Reusable components : button, modal,alert
+- [] How to use CVA in vue js
+- [] custom hook in vue
+- [] How to setup tailwindcss
+- [] How to setup tanstack query
+- [] How to setup tanstack table
+- [] State management in vue
+- [] How to pass data from child to parent
+- [] Form validation (array of Object, Objects)
+- [] Vue router
+- [] Eslint & Prettier in vue
+- [] Manage environment variable in vue
+- 

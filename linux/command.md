@@ -1,7 +1,10 @@
 ## To check the permissions of a file or directory in Unix-like systems
 ```shell
 sudo usermod -aG docker jenkins
-chown jenkins:jenkins /tmp/remote-key 
+chown jenkins:jenkins /tmp/remote-key
+# check local IP address on macbook 
+ipconfig getifaddr en0
+wc -c filename # return total character
 ```
 
 ```shell
@@ -81,4 +84,49 @@ whatis cd
 chmod --help
 man chmod
 man ls
+```
+
+# Redirect : adding text to file
+```sh
+echo "I am great" > file.txt
+echo "I am great again" >> file.txt # append the content to previous one
+echo "great" | tee filename # tee command 
+echo "great" | tee -a filename # tee command to append
+echo "great" | tee filename1 filename2 # output to multiple files
+```
+
+# Pipe
+```sh
+ls -la | more
+```
+
+# File management
+- cp, rm, mv, mkdir, chgrp, chown
+
+# File display 
+```sh
+cat messages
+more messages
+less messages
+head -2 messages
+tail -2 messages
+```
+
+# Filters / Text processors commands
+```sh
+# cut, awk, grep and egrep, sort, uniq, wc
+cut --help
+man cut
+cut --version
+cut --cl,2,4 filename
+cut --cl filename
+cut --cl-5
+```
+```sh
+awk --version
+awk '{printt $1,$3}' filename
+ls -l | awk '{print $1,$3}'
+ls -l | awk '{print $NF}'
+awk '/jerry/ {print} fil3'
+
 ```
