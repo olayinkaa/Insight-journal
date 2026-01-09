@@ -8,6 +8,7 @@ services:
         image: react-app
         build: ./client/     # path to dockerfile on client folder
         stdin_open: true
+        pull_policy: never
         tty: true
         ports:
             - "3000:3000"
@@ -47,7 +48,17 @@ volumes:
     mongo-data:
         driver: local
 ```
-
+```yml
+version: '3.3'
+services:
+  web:
+    image: php:7.3-apache
+    container_name: php73
+    volumes:
+      - ./php:/var/www/html/
+    ports:
+      - 8000:80
+```
 ```yml
 services:
   api:
@@ -121,7 +132,8 @@ services:
     # these environment variables will be available inside the container
     environment:
       VITE_API_URL: http://localhost:8000
-
+    deploy:
+      replicas: 3
     # this is for docker compose watch mode
     # anything mentioned under develop will be watched for changes by docker compose watch and it will perform the action mentioned
     develop:
@@ -250,6 +262,12 @@ services:
         - REACT_APP_NAME=olayinka
     ports:
       - "4006:8080"
+    profiles: ["debug"]
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 ```
 
 ```yml
@@ -263,4 +281,6 @@ services:
 
 # usage 
 docker-compose -f docker-compose.yml -e ENV_FILE=.env.dev up
+
+docker compose --profile debug up -d
 ```

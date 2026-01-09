@@ -1,5 +1,7 @@
 ## ZSH TERMINAL
 - code $HOME/.zshrc
+- arch -x86_64 zsh
+- arch -arm64 zsh
 
 # SKILLS
 - [ ] React Native

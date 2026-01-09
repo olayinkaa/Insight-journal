@@ -130,3 +130,7 @@ ls -l | awk '{print $NF}'
 awk '/jerry/ {print} fil3'
 
 ```
+
+```sh
+tar -czvf static_files.tar.gz
+```

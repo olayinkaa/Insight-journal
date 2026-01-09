@@ -39,6 +39,7 @@ export default function AuthLayout({children}:{
     )
 }
 ```
+
 ## USEROUTER
 ```js
 import {useRouter} from "next/navigation"
@@ -94,6 +95,16 @@ const ProductPage = ()=> {
     )
 }
 ```
+## SEARCH/QUERY PARAMS
+https://www.youtube.com/watch?v=TFsRd2Aw60Q
+```js
+import {useSearchParams} from "next/navigation"
+import {useParams} from "next/navigation"
+
+const searchParams = useSearchParams()
+const params = useParams()
+const result = searchParams.get("new")
+```
 ## REDIRECT, USEPATHNAME
 ```js
 import {redirect} from "next/navigation"
@@ -125,6 +136,11 @@ src={NatureImage}
 alt="nature image"
 width={100}
 height={500}
+/>
+<Image
+src={NatureImage}
+alt="nature image"
+fill
 />
 // for external image
 @type (import('next').NextConfig}
@@ -242,59 +258,6 @@ const onSubmit = ()=> {
     }
 }
 ```
-<<<<<<< HEAD
-
-## Sample data fetch in a page
-```js
-interface Repository {
-    id: number;
-    firstName: string;
-    lastName: string;
-}
-export default async function Page(){
-    const res = await fetch("https://api.github.com/", {
-        cache: "no-store", 
-        next: {
-            revalidate: 5
-        }
-    })
-    const data:Repository = await res.json()
-    return (
-        <div>
-            {data.firstName}
-        </div>
-    )
-}
-```
-```js
-interface Repository {
-    id: number;
-    firstName: string;
-    lastName: string;
-}
-async function getRepos():Promise<Repository>{
-    const res = await fetch("https://api.github.com/", {
-        next: {
-            revalidate: 5
-        }
-    })
-}
-
-async function getTime():Promise<Repository>{
-    const res = await fetch("https://api.github.com/", {
-        cache: "no-store", 
-    })
-}
-
-export default async function Page(){
-    const [data, time] = await Promise.all([getRepos(), getTime()])
-    return (
-        <div>
-            {data.firstName}
-        </div>
-    )
-}
-=======
 ##  Static Metadata
 ```js
 export const metadata = {
@@ -419,5 +382,4 @@ export default function DashboardLayout({children, users, revenue}:{
 
 ## Route handler
 ```js
->>>>>>> 875aeb88fefa8e0b38b5369fcbf222a90526b841
 ```

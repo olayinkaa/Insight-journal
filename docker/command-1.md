@@ -7,6 +7,9 @@ docker --version
 # list images
 docker images
 docker image ls
+docker images --digests
+docker image inspect
+docker inspect --format='{{json .Config.Labels}}' mongo | jq
 # remove image
 docker rmi nginx:latest
 ```
@@ -23,7 +26,10 @@ docker rm -fv container_name
 # Stop and remove all running containers
 # -q stands for "quiet" or "query." When used with certain commands, it instructs Docker to output only the container or image IDs (short form) rather than additional information.
 # -a stands for "all." When used with certain commands, it instructs Docker to include stopped or all containers or images in the output, not just the running or active ones.
+
+docker rm -f container_id
 docker rm $(docker ps -aq)
+docker rmi $(docker images -q)
 
 # list container running
 docker ps
@@ -35,6 +41,7 @@ docker start container_id
 docker stop container_id
 # 
 docker container prune
+docker inspect container_id
 
 ```
 
@@ -48,9 +55,18 @@ docker run -it --name my-ubuntu ubuntu:22.04
 
 # datached mode
 docker run -d redis
+# attach
+docker attach container_id
 # --rm: This option automatically removes the container when it exits. This is useful for temporary containers.
 docker run --rm --name mongodb mongo
 
+docker run --name myapp -p 8000:80 -d nginx
+# Bind mount, readonly
+docker run \
+-p 8090:80 \
+-v "$(pwd)"/static-content:/usr/share/nginx/html:ro \
+-d \
+nginx:alpine-slim
 ```
 
 ## Docker Pull
@@ -92,6 +108,8 @@ docker network ls
 docker network create mongo-network
 # remove network
 docker network rm network_name
+
+
 
 # connecting mongo and mongo-express
 docker run -d \
@@ -135,6 +153,11 @@ docker compose down # also valid command
 # ecommerce-rest-api is the project name
 docker compose -p ecommerce-rest-api down  
 
+# logs
+docker compose logs -f [service_name]
+docker compose logs -f db
+# list compose services
+docker compose ps
 # stop a service in a docker compose
 docker compose stop container_id
 
@@ -146,6 +169,8 @@ docker compose watch
 
 # build docker compose file
 docker compose build
+docker compose up --build -d
+docker compose up --build backend-service 
 
 # build docker compose file with different name
 # --no-cache: This option tells Docker Compose to not use any cache during the build process, forcing each build step to be executed from scratch.
@@ -168,6 +193,9 @@ CMD ["node","server.js"]
 docker build -t my-app:1.0 .
 # dockerfile with a different name
 docker build -t your_custom_image_name -f ./app/Dockerfile.prod /your-project-root
+docker build -f dockerfile.dev -t my-app-dev .
+
+docker build --build-arg NODE_VERSION=16.3 -t demp:16.3
 
 ```
 
@@ -185,23 +213,41 @@ docker pull docker.io/library/mongo:4.2
 docker tag my-app:1.0 66453930.dkr.eu-cental-1.amazonaws.com/my-app:1.0
 docker push 66453930.dkr.eu-cental-1.amazonaws.com/my-app:1.0
 ```
-## Docker volume: 
-use for data persistence
-- Remove volume
+## Docker volume: use for data persistence
 ```shell
-docker volume rm volume_name
 
+docker volume create volume_name
+# anonymous volune
+docker volume create
 
 # This command removes all unused volumes, which are volumes not currently attached to any containers
+# remove anonymous volume
 docker volume prune
+# remove all unused volume both name and anonymous volume
+docker volume prune -a
 
 docker volume ls -f danling=true
-
+# list available volume
+docker volume ls
+#  Remove volume
+docker volume rm volume_name
 
 # If you want to skip the confirmation prompt, you can use the -f or --force option:
 docker volume prune -f
 
 docker run -p 5173:5173 -v "$(pwd):/app" -v /app/node_modules react-docker
+
+docker run \
+-p 8081:80 \
+--mount type=volume,source=myVol2,target=/usr/share/nginx/html,readonly \
+-d \
+nginx:alpine-slim
+# bind mount
+docker run \
+-p 8081:80 \
+--mount type=bind,source="pwd"/static-content,target=/usr/share/nginx/html \
+-d \
+nginx:alpine-slim
 ```
 
 # Docker tag
@@ -213,6 +259,7 @@ docker tag app:2 olayinkaa/maven-project:2
 # Publish
 ```shell
 docker login
+docker logout
 docker login -u username -p password
 # docker tag local_image_name your_dockerhub_username/repository_name:tag
 docker tag react-docker username/react-docker
@@ -240,7 +287,7 @@ docker cp remote-key jenkins_server:/tmp
 # 1. tag the image
 docker tag app:2 olayinkaa/maven-project:2
 # this will create an image with
-#  name: oolayinka/maven-project   and tag number 2
+#  name: oolayinka/maven-project and tag number 2
 # push it
 docker push olayinkaa/maven-project:2
 

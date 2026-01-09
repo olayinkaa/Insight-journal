@@ -7,7 +7,8 @@ create ".dockerignore" file and put the following
 
 ```dockerfile
 # first stage
-FROM node:14-slim
+ARG NODE_VERSION=14
+FROM node:${NODE_VERSION}-slim
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
@@ -124,4 +125,13 @@ EXPOSE 8000
 # Run the application.
 CMD npm start
 
+```
+
+
+```dockerfile
+LABEL maintainer="Ibrahim Olayinka James"
+LABEL version="1.0"
+LABEL description="A simple nginx application"
+# OCI LABELS
+LABEL org.openContainers.image.authors=""
 ```

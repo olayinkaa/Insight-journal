@@ -1,8 +1,12 @@
 # What is algorithm
 A process or set of steps to accomplish a certain task
 
+# BIG 0
+Big O notation helps us understand how long an algorithm will take to run or how much memory
+it will need as the amount of data it handles grows.
+
 # Algorithms: Implement Selection Sort
-Selection sort works by selecting the minimum value in a list and swapping it with the first valuue in the list. 
+Selection sort works by selecting the minimum value in a list and swapping it with the first value in the list. 
 It then starts at the second position, selects the smallest value in the remaining list and swaps it with the second element.
 It continues iterating through the list and swapping elements until it reaches the end of the list. Now the list is sorted.
 Selection sort has quadratic time complexity in all cases.
