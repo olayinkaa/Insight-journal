@@ -34,3 +34,4 @@ Guthub - cloud based hosting service
 Set of practices that combine software development aim at automating and improving the flow of development,
 testing and deployment.
 Help in build faster, deploy safer, easy to maintain
+plan-> Develop-> build-> test -> release -> deploy -> monitor
