@@ -1,0 +1,10 @@
+[
+    {
+        "description": "Cash payment",
+        "name": "Cash"
+    },
+    {
+        "description": "online/POS",
+        "name": "Online/POS"
+    }
+]

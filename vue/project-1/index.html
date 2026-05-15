@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section id="user-goal">
+      <p>{{courseGoal}}</p>
+      <a v-bind:href="Link">Football news</a>
+      <h1>{{ outputGoal() }}</h1>
+      <p v-html="courseTutor"></p>
+      <p v-html="courseTutor()"></p>
+      <button v-on:click="counter++">Add</button>
+      <button v-on:click="increment">Add</button>
+      <button v-on:click="decrement(5)">Reduce</button>
+      <input type="text" v-on:input="setName"/>
+      <input type="text" v-on:input="setSurname($event, "Ibrahim")"/>
+      <form v-on:submit="submitForm">
+            <input type="text" name="" id="">
+            <button>Sign Up</button>
+      </form>
+      <!-- event modifier -->
+      <form v-on:submit.stop="submitForm">
+            <input type="text" name="" id="">
+            <button>Sign Up</button>
+      </form>
+      <form v-on:submit.prevent="submitForm">
+            <input type="text" name="" id="" v-on:keyup.="confirmInput">
+            <button>Sign Up</button>
+      </form>
+    </section>
+  </body>
+</html>
+ 

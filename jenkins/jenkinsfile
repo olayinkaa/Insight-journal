@@ -1,0 +1,88 @@
+def gv
+
+pipeline {
+    agent any
+    stages {
+        stage("init"){
+            steps {
+                script {
+                    echo "initializing Groovy Script..."
+                    gv = load "script.groovy"
+                }
+            }
+        }
+        stage("build"){
+            steps {
+                script {
+                    echo "Build docker image with dockerfile..."
+                    gv.buildImage()
+                }
+            }
+        }
+        stage("push"){
+            steps {
+                script {
+                    echo "Pushing docker image to docker hub..."
+                    gv.pushImage()
+                }
+            }
+        }
+        stage("deploy"){
+            steps {
+                script {
+                    echo "Deploying the application to EC2"
+                    gv.deployImage()
+                }
+            }
+        }
+    }
+}
+
+// 
+
+pipeline {
+    agent any
+
+    environment {
+        FIRSTNAME = 'Olayinka'
+        LASTNAME='Ibrahim'
+        secret = credentials('maven-project-user')
+    }
+    stages {
+        stage("Build"){
+            steps {
+                sh 'echo "My first pipeline"'
+                sh '''
+                    echo "Great is the lord"
+                    ls -ltra
+                '''
+            }
+        }
+        stage("Timeout"){
+            steps {
+                retry(3){
+                    sh 'echo "My name is" $FIRSTNAME $LASTNAME'
+                    sh 'echo $secret'
+                }
+                
+            }
+            timeout(time:3, unit: 'SECONDS'){
+                sh 'sleep 5'
+            }
+        }
+    }
+    post {
+        always {
+
+        }
+        success {
+
+        }
+        failure {
+            
+        }
+        unstable {
+
+        }
+    }
+}
