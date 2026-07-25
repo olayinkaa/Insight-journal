@@ -15,6 +15,17 @@
 - [ ] Algorithm
 - [ ] Vue JS
 
+# AI
+- [AI Skills](https://www.skills.sh/)
+
+
+# NPM
+```sh
+# create file .npmrc
+# add inside it
+legacy-peer-deps
+```
+
 
 ##
 The error message you're encountering (`EADDRINUSE: address already in use :::8000`) indicates that the port 8000 is already in use by another process. This typically happens when you try to start your Express.js server, but there's already another application or instance of your server running on the same port.
