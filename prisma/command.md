@@ -5,6 +5,8 @@ npx prisma init
 npx prisma generate
 npx prisma studio
 npx tsx .db/seed
+npx prisma migrate dev --name add_user_table
+
 ```
 
 ```json

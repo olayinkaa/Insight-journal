@@ -54,5 +54,18 @@ declare global {
 }
 
 export {}
+```
 
+## tsconfig
+```sh
+npm install --save-dev @tsconfig/node22
+```
+```json
+{
+    "extends": "@tsconfig/node22/tsconfig.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist"
+    }
+}
 ```
